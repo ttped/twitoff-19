@@ -12,7 +12,7 @@ TWITTER = tweepy.API(TWITTER_AUTH)
 
 
 # for turning our tweets into an array of numbers
-nlp = spacy.load('my_model')
+nlp = spacy.load('my_model') # loaded from my_models dir
 def vectorize_tweet(tweet_text):
   return nlp(tweet_text).vector
 
@@ -20,6 +20,7 @@ def add_or_update_user(username):
   try:
     """Allows us to add/update users to our DB"""
     twitter_user = TWITTER.get_user(username)
+    # either updates or adds a user depending upon if they are in the DB
     db_user = (User.query.get(twitter_user.id)) or User(id=twitter_user.id, name=username)
     DB.session.add(db_user)
 
@@ -46,11 +47,12 @@ def add_or_update_user(username):
     print('Error Processing {}: {}'.format(username, e)) # gives an error
     raise e
 
+  # last thing done is committing changes
   else: 
     DB.session.commit()
 
 
 def insert_example_users():
+  # using our functions to add two users
   add_or_update_user('elonmusk')
   add_or_update_user('jackblack')
-  
