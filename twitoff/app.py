@@ -1,8 +1,8 @@
 """Main app/routig file for Twitoff"""
 
 from flask import Flask, render_template
-from .models import DB, User
-from .twitter import insert_example_users
+from twitoff.models import DB, User
+from twitoff.twitter import insert_example_users
 from os import getenv
 
 def create_app():

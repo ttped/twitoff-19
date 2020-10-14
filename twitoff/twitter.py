@@ -1,7 +1,7 @@
 """Retrieve Tweets, word embeddings, and populate DB"""
 import tweepy
 import spacy
-from .models import DB, Tweet, User
+import twitoff.models
 from os import getenv
 
 # Grabbing from your own .env file
@@ -12,9 +12,9 @@ TWITTER = tweepy.API(TWITTER_AUTH)
 
 
 # for turning our tweets into an array of numbers
-nlp = spacy.load('my_model') # loaded from my_models dir
-def vectorize_tweet(tweet_text):
-  return nlp(tweet_text).vector
+#nlp = spacy.load('my_model') # loaded from my_models dir
+#def vectorize_tweet(tweet_text):
+#  return nlp(tweet_text).vector
 
 def add_or_update_user(username):
   try:
@@ -30,7 +30,7 @@ def add_or_update_user(username):
     )
 
     # will update the most recent tweet id to the user
-    if tweets: 
+    if tweets:
       db_user.newest_tweet_id = tweets[0].id
 
 
@@ -48,7 +48,7 @@ def add_or_update_user(username):
     raise e
 
   # last thing done is committing changes
-  else: 
+  else:
     DB.session.commit()
 
 
