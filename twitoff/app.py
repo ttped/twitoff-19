@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, request
 from twitoff.models import DB, User, migrate
-from twitoff.twitter import insert_example_users
+from twitoff.twitter import insert_example_users, add_or_update_user
 from os import getenv
 from twitoff.predict import predict_user
 
