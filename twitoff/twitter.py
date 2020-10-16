@@ -1,7 +1,7 @@
 """Retrieve Tweets, word embeddings, and populate DB"""
 import tweepy
 import spacy
-import en_core_web_sm
+#import en_core_web_sm
 from twitoff.models import DB, Tweet, User
 from os import getenv
 from dotenv import load_dotenv
@@ -15,8 +15,9 @@ TWITTER_AUTH = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_KEY_SECRET)
 TWITTER = tweepy.API(TWITTER_AUTH)
 
 # for turning our tweets into an array of numbers
-nlp = spacy.load('my_model') # loaded from my_models dir
+#nlp = spacy.load('my_model') # loaded from my_models dir
 #nlp = en_core_web_sm.load()
+nlp = spacy.load('en_core_web_sm')
 def vectorize_tweet(tweet_text):
   return nlp(tweet_text).vector
 
